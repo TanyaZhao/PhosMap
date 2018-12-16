@@ -19,12 +19,22 @@
 
 get_motifs_list <- function(foreground, background, center_vector, motifx_pvalue){
   motifs_list <- list()
+  motifs_list_names <- NULL
+  motifs_list_index <- 0
   center_vector_len <- length(center_vector)
   for(i in 1:center_vector_len){
     center <- center_vector[i]
     motifs <- get_motif_analysis_summary_list(foreground, background, center = center, min_sequence_count = 1, min_pvalue = motifx_pvalue)
-    motifs_list[[i]] <- motifs
+    if(!is.null(motifs)){
+      motifs_list_index <- motifs_list_index + 1
+      motifs_list[[motifs_list_index]] <- motifs
+      motifs_list_names <- c(motifs_list_names, center)
+    }
   }
-  names(motifs_list) <- center_vector
-  return(motifs_list)
+  if(motifs_list_index > 0){
+    names(motifs_list) <- motifs_list_names
+    return(motifs_list)
+  }else{
+    return(NULL)
+  }
 }

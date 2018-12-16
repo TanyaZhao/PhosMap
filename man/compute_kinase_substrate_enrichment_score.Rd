@@ -32,7 +32,7 @@ enrichment_score <- compute_kinase_substrate_enrichment_score(
 
 }
 \references{
-Hernandez-Armenta C, Ochoa D, Gonçalves E, et al. Benchmarking substrate-based kinase activity inference using phosphoproteomic data[J]. Bioinformatics, 2017, 33(12): 1845-1851.
+Hernandez-Armenta C et al. Benchmarking substrate-based kinase activity inference using phosphoproteomic data[J]. Bioinformatics, 2017, 33(12): 1845-1851.
 }
 \author{
 Dongdong Zhan and Mengsha Tong

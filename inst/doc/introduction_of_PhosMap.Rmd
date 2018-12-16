@@ -64,7 +64,7 @@ BASE_DIR <- normalizePath(BASE_DIR)
 phosphorylation_exp_design_info_file_path <- normalizePath(file.path(BASE_DIR, 'phosphorylation_exp_design_info.txt'))
 phosphorylation_peptide_dir <- normalizePath(file.path(BASE_DIR, 'phosphorylation_peptide_txt'))
 
-if(F){
+if(FALSE){
   # if you have xml files from mascot results, you can run the cmd to parser them to text files.
   mascot_xml_dir <- normalizePath(file.path(BASE_DIR, 'mascot_xml'))
   mascot_txt_dir <- normalizePath(file.path(BASE_DIR, 'mascot_txt'))
@@ -258,7 +258,7 @@ system.time({
 ksea_regulons_activity_df_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_activity_df
 ksea_id_cluster <- as.vector(ksea_regulons_activity_df_cluster[,1])
 ksea_value_cluster <- ksea_regulons_activity_df_cluster[,-1]
-if(F){
+if(FALSE){
   # Pvalue of regulons for regulation
   ksea_regulons_pvalue_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_pvalue_df
   # Activity of regulons for regulation
@@ -267,12 +267,11 @@ if(F){
   ksea_kinase_site_substrate_original_ratio_cluster <- summary_df_list_from_ksea_cluster$ksea_kinase_site_substrate_original_ratio_df
 }
 
-# pheatmap
-requireNamespace('pheatmap')
+
 
 # annotation setting
 annotation_col <- data.frame(
-  group <- group
+  group = group
 )
 rownames(annotation_col) <- colnames(ksea_value_cluster)
 
@@ -298,25 +297,29 @@ color <- c(colors_1, colors_2, colors_3, colors_4, colors_5)
 color <- color[which(!duplicated(color))]
 
 # plot pheatmap
-ph <- pheatmap::pheatmap(
-  ksea_value_cluster, 
-  scale = 'none', 
-  annotation_col = annotation_col, 
-  clustering_distance_rows = 'euclidean',
-  fontsize_row = 3, 
-  # cutree_rows = 1, 
-  show_rownames = T,
-  fontsize_col = 5,
-  # cutree_cols = 1, 
-  cluster_cols = F,
-  border_color = 'black', 
-  cellwidth = 5, cellheight = 5,
-  breaks = breaks,
-  color = color,
-  legend_breaks = c(-4, -2, -1, 0, 1, 2, 4),
-  legend_labels = c(-4, -2, -1, 0, 1, 2, 4),
-  main = paste('Kinase-substrate enrichment analysis', cluster_flag, sep = ' ')
-)
+if(TRUE){
+  library(pheatmap)
+  ph <- pheatmap(
+    ksea_value_cluster, 
+    scale = 'none', 
+    annotation_col = annotation_col, 
+    clustering_distance_rows = 'euclidean',
+    fontsize_row = 5, 
+    # cutree_rows = 1, 
+    show_rownames = T,
+    fontsize_col = 5,
+    # cutree_cols = 1, 
+    cluster_cols = F,
+    border_color = 'black', 
+    cellwidth = 5, cellheight = 5,
+    breaks = breaks,
+    color = color,
+    legend_breaks = c(-4, -2, -1, 0, 1, 2, 4),
+    legend_labels = c(-4, -2, -1, 0, 1, 2, 4),
+    main = paste('Kinase-substrate enrichment analysis', cluster_flag, sep = ' ')
+  )
+}
+
 ```
 
 - MLR
@@ -351,17 +354,19 @@ species <- 'human'
 motifx_pvalue <- 0.01
 
 # get foreground data frame
-foreground_df <- motif_get_aligned_sequence_df_based_on_fasta_library(GI, Sequence, AA_in_protein, fixed_length, species)
+# foreground_df <- motif_get_aligned_sequence_df_based_on_fasta_library(GI, Sequence, AA_in_protein, fixed_length, species)
 
 # get background data frame
-background_df <- get_global_background_df(species)
+# background_df <- get_global_background_df(species)
 ```
 
 - Motif enrichment analysis
 ```{r motif_enrichment_analysis_based_on_background}
 # construct foreground and background
 foreground <- as.vector(foreground_df$aligned_seq)
+foreground <- foreground[sample(length(foreground), 1000)]
 background <- as.vector(background_df$Aligned_Seq)
+background <- background[sample(length(background), 10000)]
 
 
 motifs_list <- motif_enrichment_analysis_based_on_background(foreground, AA_in_protein, background, motifx_pvalue)
@@ -425,8 +430,6 @@ rownames(motif_group_m_ratio_df) <- paste(motifs_subset, peptides_count_subset)
 # The matrix is import inot pheatmap
 motif_group_m_ratio_df_mat <- as.matrix(motif_group_m_ratio_df)
 
-# pheatmap
-require('pheatmap')
 
 # breaks and colors setting
 breaks_1 <- seq(0, 0.5, 0.1)
@@ -450,22 +453,24 @@ length(breaks)
 length(which(!duplicated(colors)))
 
 # plot pheatmap
-ph <- pheatmap::pheatmap(
-  motif_group_m_ratio_df_mat, 
-  scale = 'none', 
-  # annotation_col = annotation_col, 
-  clustering_distance_cols = 'euclidean',
-  fontsize_row = 4, cutree_rows = 1, show_rownames = T, cluster_rows = T,
-  fontsize_col = 4, cutree_cols = 1, show_colnames = T, cluster_cols = F,
-  border_color = 'black', 
-  # color = colors, 
-  cellwidth = 5, cellheight = 5,
-  breaks = breaks,
-  color = colors,
-  legend_breaks = c(0, 0.5, 1, 1.5, 2, 4),
-  legend_labels = c(0, 0.5, 1, 1.5, 2, 4),
-  main = 'Kinase-substrate enrichment analysis'
-)
+if(TRUE){
+  ph <- pheatmap(
+    motif_group_m_ratio_df_mat, 
+    scale = 'none', 
+    # annotation_col = annotation_col, 
+    clustering_distance_cols = 'euclidean',
+    fontsize_row = 6, cutree_rows = 1, show_rownames = T, cluster_rows = T,
+    fontsize_col = 6, cutree_cols = 1, show_colnames = T, cluster_cols = F,
+    border_color = 'black', 
+    # color = colors, 
+    cellwidth = 6, cellheight = 6,
+    breaks = breaks,
+    color = colors,
+    legend_breaks = c(0, 0.5, 1, 1.5, 2, 4),
+    legend_labels = c(0, 0.5, 1, 1.5, 2, 4),
+    main = 'Motif enrichment analysis'
+  )
+}
 ```
 
 - formatting output

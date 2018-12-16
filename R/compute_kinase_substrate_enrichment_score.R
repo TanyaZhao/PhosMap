@@ -6,7 +6,7 @@
 #'
 #' @author Dongdong Zhan and Mengsha Tong
 #'
-#' @references Hernandez-Armenta C, Ochoa D, Gonçalves E, et al. Benchmarking substrate-based kinase activity inference using phosphoproteomic data[J]. Bioinformatics, 2017, 33(12): 1845-1851.
+#' @references Hernandez-Armenta C et al. Benchmarking substrate-based kinase activity inference using phosphoproteomic data[J]. Bioinformatics, 2017, 33(12): 1845-1851.
 #'
 #' @return A numeric or NA for enrichment_score.
 #'

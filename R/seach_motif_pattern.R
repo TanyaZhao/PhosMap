@@ -35,6 +35,7 @@ seach_motif_pattern <- function(
   width
 ){
 
+  requireNamespace('stats')
   AA_LIST = c('A', 'R', 'N', 'D', 'C', 'Q', 'E', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V')
 
   raw_foreground_sequence <- foreground_sequence
@@ -63,7 +64,7 @@ seach_motif_pattern <- function(
     )
 
     # Compute occurrence probability distribution of aa pattern in foreground using binomial function
-    binomial_matrix <- 1 - pbinom(foreground_pwm-1, length(foreground_sequence), background_pwm, lower.tail=TRUE)
+    binomial_matrix <- 1 - stats::pbinom(foreground_pwm-1, length(foreground_sequence), background_pwm, lower.tail=TRUE)
 
     # replace 0 probability to 1e-16
     binomial_matrix[binomial_matrix == 0] <- 1e-16

@@ -117,26 +117,6 @@ get_ksea_result_list <- function(ptypes_data_ratio_in_sigle_exp, ID, kinase_subs
         id <- paste(names(regulons_i[l]), '|', NA)
       }
     }
-    if(F){
-      requireNamespace('ksea')
-      ksea_result_i_l <- ksea::ksea(
-        ptypes_data_ratio_in_sigle_exp_desc_names,
-        ptypes_data_ratio_in_sigle_exp_desc,
-        regulons_i_l,
-        trial=1000,
-        significance = TRUE,
-        display = F
-      )
-      if(length(ksea_result_i_l) > 1){
-        es <- as.vector(ksea_result_i_l$ES)
-        pvalue <- as.vector(ksea_result_i_l$p.value)
-        id <- paste(names(regulons_i[l]), '|', NULL)
-      }else{
-        es <- NA
-        pvalue <- NA
-        id <- paste(names(regulons_i[l]), '|', NA)
-      }
-    }
     ksea_es_i <- c(ksea_es_i, es)
     ksea_pvalue_i <- c(ksea_pvalue_i, pvalue)
     ksea_regulons_i <- c(ksea_regulons_i, id)
