@@ -7,7 +7,6 @@
 #'
 #' @author Dongdong Zhan and Mengsha Tong
 #'
-#' @references David Ochoa (NA). ksea: Kinase Activity Prediction based in Quantitative Phosphoproteomic Data. R package version 0.1.2.
 #'
 #' @return A list containing results from ksea.
 #'
@@ -27,7 +26,6 @@
 
 
 get_ksea_result_list <- function(ptypes_data_ratio_in_sigle_exp, ID, kinase_substrate_regulation_relationship, ksea_activity_i_pvalue = 0.05){
-  requireNamespace("ksea")
   symbol <- apply(data.frame(ID), 1, function(x){
     x <- strsplit(x, split = '_')[[1]]
     x[1]
@@ -103,18 +101,41 @@ get_ksea_result_list <- function(ptypes_data_ratio_in_sigle_exp, ID, kinase_subs
   ksea_regulons_i <- NULL
   for(l in seq_len(kinases_i_unique_count)){
     regulons_i_l <- regulons_i[[l]]
-    ksea_result_i_l <- ksea::ksea(ptypes_data_ratio_in_sigle_exp_desc_names,
-                           ptypes_data_ratio_in_sigle_exp_desc,
-                           regulons_i_l,
-                           trial=1000, significance = TRUE,display=F)
-    if(length(ksea_result_i_l) > 1){
-      es <- as.vector(ksea_result_i_l$ES)
-      pvalue <- as.vector(ksea_result_i_l$p.value)
-      id <- paste(names(regulons_i[l]), '|', NULL)
-    }else{
-      es <- NA
-      pvalue <- NA
-      id <- paste(names(regulons_i[l]), '|', NA)
+    if(T){
+      ksea_result_i_l <- get_kinase_substrate_enrichment_significance(
+        ptypes_data_ratio_in_sigle_exp_desc,
+        regulons_i_l,
+        1000
+      )
+      if(length(ksea_result_i_l) > 1){
+        es <- as.vector(ksea_result_i_l$expected_enrichment_score)
+        pvalue <- as.vector(ksea_result_i_l$pvalue)
+        id <- paste(names(regulons_i[l]), '|', NULL)
+      }else{
+        es <- NA
+        pvalue <- NA
+        id <- paste(names(regulons_i[l]), '|', NA)
+      }
+    }
+    if(F){
+      requireNamespace('ksea')
+      ksea_result_i_l <- ksea::ksea(
+        ptypes_data_ratio_in_sigle_exp_desc_names,
+        ptypes_data_ratio_in_sigle_exp_desc,
+        regulons_i_l,
+        trial=1000,
+        significance = TRUE,
+        display = F
+      )
+      if(length(ksea_result_i_l) > 1){
+        es <- as.vector(ksea_result_i_l$ES)
+        pvalue <- as.vector(ksea_result_i_l$p.value)
+        id <- paste(names(regulons_i[l]), '|', NULL)
+      }else{
+        es <- NA
+        pvalue <- NA
+        id <- paste(names(regulons_i[l]), '|', NA)
+      }
     }
     ksea_es_i <- c(ksea_es_i, es)
     ksea_pvalue_i <- c(ksea_pvalue_i, pvalue)

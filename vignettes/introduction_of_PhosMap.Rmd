@@ -272,7 +272,7 @@ requireNamespace('pheatmap')
 
 # annotation setting
 annotation_col <- data.frame(
-  group <- group
+  group = group
 )
 rownames(annotation_col) <- colnames(ksea_value_cluster)
 
@@ -303,7 +303,7 @@ ph <- pheatmap::pheatmap(
   scale = 'none', 
   annotation_col = annotation_col, 
   clustering_distance_rows = 'euclidean',
-  fontsize_row = 3, 
+  fontsize_row = 5, 
   # cutree_rows = 1, 
   show_rownames = T,
   fontsize_col = 5,
@@ -351,10 +351,10 @@ species <- 'human'
 motifx_pvalue <- 0.01
 
 # get foreground data frame
-foreground_df <- motif_get_aligned_sequence_df_based_on_fasta_library(GI, Sequence, AA_in_protein, fixed_length, species)
+# foreground_df <- motif_get_aligned_sequence_df_based_on_fasta_library(GI, Sequence, AA_in_protein, fixed_length, species)
 
 # get background data frame
-background_df <- get_global_background_df(species)
+# background_df <- get_global_background_df(species)
 ```
 
 - Motif enrichment analysis
@@ -455,11 +455,11 @@ ph <- pheatmap::pheatmap(
   scale = 'none', 
   # annotation_col = annotation_col, 
   clustering_distance_cols = 'euclidean',
-  fontsize_row = 4, cutree_rows = 1, show_rownames = T, cluster_rows = T,
-  fontsize_col = 4, cutree_cols = 1, show_colnames = T, cluster_cols = F,
+  fontsize_row = 6, cutree_rows = 1, show_rownames = T, cluster_rows = T,
+  fontsize_col = 6, cutree_cols = 1, show_colnames = T, cluster_cols = F,
   border_color = 'black', 
   # color = colors, 
-  cellwidth = 5, cellheight = 5,
+  cellwidth = 6, cellheight = 6,
   breaks = breaks,
   color = colors,
   legend_breaks = c(0, 0.5, 1, 1.5, 2, 4),

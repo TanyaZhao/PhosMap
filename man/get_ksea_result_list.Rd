@@ -34,9 +34,6 @@ ksea_result_list = get_ksea_result_list(
 
 
 }
-\references{
-David Ochoa (NA). ksea: Kinase Activity Prediction based in Quantitative Phosphoproteomic Data. R package version 0.1.2.
-}
 \author{
 Dongdong Zhan and Mengsha Tong
 }

@@ -4,14 +4,14 @@
 \alias{get_motifs_list}
 \title{Motif enrichment using rmotifx.}
 \usage{
-get_motifs_list(foreground, background, central_vector, motifx_pvalue)
+get_motifs_list(foreground, background, center_vector, motifx_pvalue)
 }
 \arguments{
 \item{foreground}{A vector for aligned sequences as the foreground input.}
 
 \item{background}{A vector for aligned sequences as the background input.}
 
-\item{central_vector}{A vector for aligned centers.}
+\item{center_vector}{A vector for aligned centers.}
 
 \item{motifx_pvalue}{A numeric value for selecting motifs that meets the minimum cutoff.}
 }
@@ -23,7 +23,7 @@ Motif enrichment using rmotifx.
 }
 \examples{
 \dontrun{
-motifs_list = get_motifs_list(foreground, background, central_vector, motifx_pvalue)
+motifs_list = get_motifs_list(foreground, background, center_vector, motifx_pvalue)
 }
 }
 \references{

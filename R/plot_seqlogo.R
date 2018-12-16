@@ -21,6 +21,7 @@ plot_seqlogo <- function(base_dir, foreground_sequences_mapped_to_motifs, plot_m
   requireNamespace('ggseqlogo')
   requireNamespace('stringr')
   requireNamespace('grDevices')
+  requireNamespace('pheatmap')
   motifs_names <- names(foreground_sequences_mapped_to_motifs)
   motifs_names_count <- length(motifs_names)
   if(motifs_names_count < 1){

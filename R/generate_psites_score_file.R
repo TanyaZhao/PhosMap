@@ -10,6 +10,7 @@
 #' @author Dongdong Zhan and Mengsha Tong
 #'
 #' @return A series of output files saved in the psites_score_dir
+#' @export
 #'
 #' @examples
 #' \dontrun{

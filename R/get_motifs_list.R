@@ -2,7 +2,7 @@
 #'
 #' @param foreground A vector for aligned sequences as the foreground input.
 #' @param background A vector for aligned sequences as the background input.
-#' @param central_vector A vector for aligned centers.
+#' @param center_vector A vector for aligned centers.
 #' @param motifx_pvalue A numeric value for selecting motifs that meets the minimum cutoff.
 #'
 #' @author Dongdong Zhan and Mengsha Tong
@@ -14,19 +14,17 @@
 #'
 #' @examples
 #' \dontrun{
-#' motifs_list = get_motifs_list(foreground, background, central_vector, motifx_pvalue)
+#' motifs_list = get_motifs_list(foreground, background, center_vector, motifx_pvalue)
 #' }
 
-
-get_motifs_list <- function(foreground, background, central_vector, motifx_pvalue){
-  requireNamespace('rmotifx')
+get_motifs_list <- function(foreground, background, center_vector, motifx_pvalue){
   motifs_list <- list()
-  central_vector_len <- length(central_vector)
-  for(i in 1:central_vector_len){
-    central <- central_vector[i]
-    motifs <- rmotifx::motifx(foreground, background, central.res = central, min.seqs = 1, pval.cutoff = 1e-2)
+  center_vector_len <- length(center_vector)
+  for(i in 1:center_vector_len){
+    center <- center_vector[i]
+    motifs <- get_motif_analysis_summary_list(foreground, background, center = center, min_sequence_count = 1, min_pvalue = motifx_pvalue)
     motifs_list[[i]] <- motifs
   }
-  names(motifs_list) <- central_vector
+  names(motifs_list) <- center_vector
   return(motifs_list)
 }

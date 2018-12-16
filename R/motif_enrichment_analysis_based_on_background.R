@@ -27,21 +27,21 @@
 motif_enrichment_analysis_based_on_background <- function(foreground, AA_in_protein, background, motifx_pvalue){
   # foreground = as.vector(foreground)
   # background = as.vector(background$Aligned_Seq)
-  central_vector_candidate <- c('S', 'T', 'Y')
-  central_vector_candidate_len <- length(central_vector_candidate)
-  central_vector <- NULL
-  for(i in seq_len(central_vector_candidate_len)){
-    central <- central_vector_candidate[i]
-    if(length(grep(central, AA_in_protein)) > 0){
-      central_vector <- c(central_vector, central)
+  center_vector_candidate <- c('S', 'T', 'Y')
+  center_vector_candidate_len <- length(center_vector_candidate)
+  center_vector <- NULL
+  for(i in seq_len(center_vector_candidate_len)){
+    center <- center_vector_candidate[i]
+    if(length(grep(center, AA_in_protein)) > 0){
+      center_vector <- c(center_vector, center)
     }
   }
   cat('Start executing motifx and find motif pattern. \n')
   cat('Foreground sequences: ', length(foreground), '.\n', sep = '')
   cat('Background sequences: ', length(background), '.\n', sep = '')
-  cat('Phosphorylation: [', central_vector, '] exists in foreground.\n', sep = '')
+  cat('Phosphorylation: [', center_vector, '] exists in foreground.\n', sep = '')
   cat('Motifx pvalue cutoff: ', motifx_pvalue, '.\n', sep = '')
-  motifs_list <- get_motifs_list(foreground, background, central_vector, motifx_pvalue)
+  motifs_list <- get_motifs_list(foreground, background, center_vector, motifx_pvalue)
   cat('Motifx analysis OK! ^_^', '\n')
   print(motifs_list)
   cat('\n')

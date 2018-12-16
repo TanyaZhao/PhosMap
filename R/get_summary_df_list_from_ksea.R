@@ -30,7 +30,6 @@ get_summary_df_list_from_ksea <- function(
   log2_label = TRUE,
   ratio_cutoff = 3
 ){
-  requireNamespace("ksea")
   requireNamespace('utils')
   # read relationship of kinase-substrate provided by PhosMap
   # KSRR: kinase substrate regulation relationship
@@ -70,10 +69,12 @@ get_summary_df_list_from_ksea <- function(
   for(i in seq_len(ptypes_data_exp_count)){
     cat('\n completing: ', i, '/', ptypes_data_exp_count)
     ptypes_data_ratio_in_sigle_exp <- as.numeric(unlist(ptypes_data_ratio[,i]))
-    ksea_result_list_i <- get_ksea_result_list(ptypes_data_ratio_in_sigle_exp,
-                                              ID,
-                                              kinase_substrate_regulation_relationship,
-                                              ksea_activity_i_pvalue = 0.05)
+    ksea_result_list_i <- get_ksea_result_list(
+      ptypes_data_ratio_in_sigle_exp,
+      ID,
+      kinase_substrate_regulation_relationship,
+      ksea_activity_i_pvalue = 0.05
+    )
     ksea_es_list[[i]] <- ksea_result_list_i$ksea_es_i_non_NA
     ksea_pvalue_list[[i]] <- ksea_result_list_i$ksea_pvalue_i_non_NA
     ksea_regulons_list[[i]] <- ksea_result_list_i$ksea_regulons_i_non_NA

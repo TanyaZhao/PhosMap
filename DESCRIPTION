@@ -11,7 +11,6 @@ LazyData: FALSE
 RoxygenNote: 6.0.1
 Date: 2018-12-12
 Depends: R (>= 2.10)
-Additional_repositories: https://github.com/omarwagih/rmotifx/,https://github.com/evocellnet/ksea/
-Imports: graphics, grDevices, stats, utils, stringr, ggseqlogo, samr, limma, e1071, ClueR, Rtsne, glmnet, ksea, rmotifx
-Suggests: knitr, rmarkdown, pheatmap
+Imports: graphics, grDevices, stats, utils, stringr, ggseqlogo, samr, limma, e1071, ClueR, Rtsne, glmnet
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
