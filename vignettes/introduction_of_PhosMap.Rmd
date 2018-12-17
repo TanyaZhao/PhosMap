@@ -455,6 +455,7 @@ length(which(!duplicated(colors)))
 
 # plot pheatmap
 if(TRUE){
+  library(pheatmap)
   ph <- pheatmap(
     motif_group_m_ratio_df_mat, 
     scale = 'none', 
