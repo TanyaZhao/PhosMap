@@ -21,7 +21,7 @@
 #'   profiling_data_normalized,
 #'   experiment_design_file_path,
 #'   control_label = NA,
-#'   pair_flag = F
+#'   pair_flag = FALSE
 #' )
 #' }
 normalize_phospho_data_to_profiling <- function (phospho_data_normalized, profiling_data_normalized,
@@ -30,7 +30,7 @@ normalize_phospho_data_to_profiling <- function (phospho_data_normalized, profil
 
   requireNamespace('utils')
   # phosphorylation_exp_design_info_file_path
-  phosphorylation_experiment_design_file <- utils::read.table(phosphorylation_exp_design_info_file_path, header = T,
+  phosphorylation_experiment_design_file <- utils::read.table(phosphorylation_exp_design_info_file_path, header = TRUE,
                                                        sep = '\t', stringsAsFactors = NA)
   phosphorylation_groups_labels <- names(table(phosphorylation_experiment_design_file$Group))
   phosphorylation_groups <- factor(phosphorylation_experiment_design_file$Group,
@@ -39,7 +39,7 @@ normalize_phospho_data_to_profiling <- function (phospho_data_normalized, profil
 
   # profiling_exp_design_info_file_path
   profiling_experiment_design_file <- utils::read.table(profiling_exp_design_info_file_path,
-                                                header = T, sep = '\t', stringsAsFactors = NA)
+                                                header = TRUE, sep = '\t', stringsAsFactors = NA)
   profiling_groups_labels <- names(table(profiling_experiment_design_file$Group))
   profiling_groups <- factor(profiling_experiment_design_file$Group, levels = profiling_groups_labels)
 
@@ -87,7 +87,7 @@ normalize_phospho_data_to_profiling <- function (phospho_data_normalized, profil
       if(length(j) > 0){
         x_correction <- NULL
         x_profiling <- as.vector(unlist(profiling_Value[j,]))
-        for(k in 1:phospho_Value_col){
+        for(k in seq_len(phospho_Value_col)){
           phos_k_group_label <- phosphorylation_groups_labels[k]
           prof_k_vector <- x_profiling[which(phos_k_group_label==profiling_groups_labels)]
           prof_k_mean <- mean(prof_k_vector)
@@ -107,7 +107,7 @@ normalize_phospho_data_to_profiling <- function (phospho_data_normalized, profil
       if(length(j) > 0){
         x_correction <- NULL
         x_profiling <- as.vector(unlist(profiling_Value[j,]))
-        for(k in 1:phospho_Value_col){
+        for(k in seq_len(phospho_Value_col)){
           phos_k_group_label <- phosphorylation_experiment_design_file$Group[k]
           prof_k_vector <- x_profiling[which(phos_k_group_label==profiling_experiment_design_file$Group)]
           prof_k_mean <- mean(prof_k_vector)

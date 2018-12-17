@@ -45,16 +45,16 @@ get_combined_data_frame_with_mapped_gene_symbol <- function(
   # Split a string: sequenceID, accession, modification
   seq_gi_site_vector <- as.vector(merge_df_with_phospho_peptides$ID_of_seq_gi_site)
   Sequence <- apply(data.frame(seq_gi_site_vector), 1, function(x){
-    strsplit(x, split="||", fixed = T)[[1]][1]
+    strsplit(x, split="||", fixed = TRUE)[[1]][1]
   })
   GI <- apply(data.frame(seq_gi_site_vector), 1, function(x){
-    strsplit(x, split="||", fixed = T)[[1]][2]
+    strsplit(x, split="||", fixed = TRUE)[[1]][2]
   })
   Modification <- apply(data.frame(seq_gi_site_vector), 1, function(x){
-    strsplit(x, split="||", fixed = T)[[1]][3]
+    strsplit(x, split="||", fixed = TRUE)[[1]][3]
   })
   GeneSymbol <- apply(data.frame(GI), 1, function(x, MappingDf){
-    gi.all <- strsplit(x, split=";", fixed = T)[[1]]
+    gi.all <- strsplit(x, split=";", fixed = TRUE)[[1]]
     gi_mapping_symbol <- apply(data.frame(gi.all), 1, function(y, MappingDf){
       index_of_mapping <- which(MappingDf$GI==y)
       if(length(index_of_mapping)==0){

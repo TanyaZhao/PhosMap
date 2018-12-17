@@ -27,7 +27,7 @@ get_df_with_AAs_i_of_reducing_redundancy <- function(df_with_AAs_i){
     GI <- as.vector(df_with_unique_protein_site$GI[1])
     Modification <- as.vector(df_with_unique_protein_site$Modification[1])
     GeneSymbol <- paste(df_with_unique_protein_site$GeneSymbol, collapse = '||')
-    Value_Sum <- colSums(df_with_unique_protein_site[,-c(1:6)])
+    Value_Sum <- colSums(df_with_unique_protein_site[,-c(seq_len(6))])
     summary_df_with_unique_protein_site <- cbind(data.frame(AA_in_protein, AA_in_peptide, Sequence, GI, Modification, GeneSymbol),
                                                 t(data.frame(Value_Sum)))
     summary_df_with_unique_protein_sites <- rbind(summary_df_with_unique_protein_sites, summary_df_with_unique_protein_site)

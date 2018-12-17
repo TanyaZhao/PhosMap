@@ -14,13 +14,13 @@
 get_all_psites_and_normalize_data_with_FOT5 <- function(data_frame, experiment_code_file_path){
   requireNamespace('utils')
   cat('\n The 7th step: Normalize data and filter data only including phosphorylation site.')
-  experiment_code <- utils::read.table(experiment_code_file_path, header = T, sep = '\t', stringsAsFactors = NA)
+  experiment_code <- utils::read.table(experiment_code_file_path, header = TRUE, sep = '\t', stringsAsFactors = NA)
   experiment_code <- as.vector(unlist(experiment_code$Experiment_Code))
   data_frame_colnames <- colnames(data_frame)
 
   cat('\n The 7th step is running.')
-  summary_df_ID_Info <- data_frame[, 1:6]
-  summary_df_Value <- data_frame[, -(1:6)]
+  summary_df_ID_Info <- data_frame[, seq_len(6)]
+  summary_df_Value <- data_frame[, -(seq_len(6))]
   Value_Area <- summary_df_Value
   Value_FOT5 <- Value_Area
   Value_FOT5_col <- ncol(Value_FOT5)

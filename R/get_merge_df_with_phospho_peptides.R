@@ -32,7 +32,7 @@ get_merge_df_with_phospho_peptides <- function(
   if(peptide_id_len>1){
     for(i in 2:peptide_id_len){
       tmp_df <- df_list_with_phospho_peptides[[i]]
-      merge_df_with_phospho_peptides <- merge(merge_df_with_phospho_peptides, tmp_df, by = 'ID', all = T)
+      merge_df_with_phospho_peptides <- merge(merge_df_with_phospho_peptides, tmp_df, by = 'ID', all = TRUE)
     }
   }
   ID_of_seq_gi_site <- as.vector(merge_df_with_phospho_peptides$ID)

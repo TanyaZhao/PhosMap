@@ -76,7 +76,7 @@ seach_motif_pattern <- function(
 
     # search AAs equal to min_binomial_probability and less than min_pvalue
     min_binomial_probability <- min(binomial_matrix)
-    min_binomial_probability_coordinate_matrix <- which(binomial_matrix == min_binomial_probability & binomial_matrix < min_pvalue, arr.ind=T)
+    min_binomial_probability_coordinate_matrix <- which(binomial_matrix == min_binomial_probability & binomial_matrix < min_pvalue, arr.ind=TRUE)
 
     # if there are no AAs meeting above reqirements, exit loop
     if(nrow(min_binomial_probability_coordinate_matrix) == 0){

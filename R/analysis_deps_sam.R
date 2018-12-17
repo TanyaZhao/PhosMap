@@ -26,7 +26,7 @@
 
 analysis_deps_sam <- function(expr_data_frame, group, log2_label = FALSE,
                               nperms = 100, rand = NULL, minFDR = 0.05,
-                              samr_plot = T){
+                              samr_plot = TRUE){
   requireNamespace('samr')
   requireNamespace('stats')
   expr_ID <- as.vector(expr_data_frame[,1])

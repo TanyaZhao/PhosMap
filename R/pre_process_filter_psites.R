@@ -25,19 +25,19 @@ pre_process_filter_psites <- function(firmiana_peptide_dir, psites_score_dir,
                                       phospho_experiment_design_file_path, qc,
                                       min_score = 20, min_FDR = 0.01) {
   requireNamespace('utils')
-  PEPTIDE_DIR <- normalizePath(firmiana_peptide_dir, mustWork = F)
+  PEPTIDE_DIR <- normalizePath(firmiana_peptide_dir, mustWork = FALSE)
   if(!file.exists(firmiana_peptide_dir)){
     cat(firmiana_peptide_dir, ' -> ', 'No the directory.')
     stop('')
   }
 
-  PSITES_WITH_SCORE_DIR <- normalizePath(psites_score_dir, mustWork = F)
+  PSITES_WITH_SCORE_DIR <- normalizePath(psites_score_dir, mustWork = FALSE)
   if(!file.exists(psites_score_dir)){
     cat(psites_score_dir, ' -> ', 'No the directory.')
     stop('')
   }
 
-  phospho_experiment_design_file_path <- normalizePath(phospho_experiment_design_file_path, mustWork = F)
+  phospho_experiment_design_file_path <- normalizePath(phospho_experiment_design_file_path, mustWork = FALSE)
   if(!file.exists(phospho_experiment_design_file_path)){
     cat(phospho_experiment_design_file_path, ' -> ', 'No the file')
     stop('')
@@ -45,7 +45,7 @@ pre_process_filter_psites <- function(firmiana_peptide_dir, psites_score_dir,
 
   # read experiment design file and make merged experments keep order of experiment design
   phospho_experiment_design_file <- utils::read.table(phospho_experiment_design_file_path, sep = '\t',
-                                               header = T, stringsAsFactors = NA)
+                                               header = TRUE, stringsAsFactors = NA)
   phospho_experiment_ID <- as.vector(unlist(phospho_experiment_design_file$Experiment_Code))
 
   #### (1) Read peptide identification file from Firmiana ####

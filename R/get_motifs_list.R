@@ -22,7 +22,7 @@ get_motifs_list <- function(foreground, background, center_vector, motifx_pvalue
   motifs_list_names <- NULL
   motifs_list_index <- 0
   center_vector_len <- length(center_vector)
-  for(i in 1:center_vector_len){
+  for(i in seq_len(center_vector_len)){
     center <- center_vector[i]
     motifs <- get_motif_analysis_summary_list(foreground, background, center = center, min_sequence_count = 1, min_pvalue = motifx_pvalue)
     if(!is.null(motifs)){

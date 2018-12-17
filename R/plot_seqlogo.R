@@ -30,13 +30,13 @@ plot_seqlogo <- function(base_dir, foreground_sequences_mapped_to_motifs, plot_m
     cat('Total motifs:', motifs_names_count, '\n')
   }
 
-  ggseqlogo_dir <- normalizePath(file.path(base_dir, 'PhosMap_ggseqlogo'), mustWork = F)
+  ggseqlogo_dir <- normalizePath(file.path(base_dir, 'PhosMap_ggseqlogo'), mustWork = FALSE)
   if(!file.exists(ggseqlogo_dir)){
     dir.create(ggseqlogo_dir)
   }
   current_time <- Sys.time()
   current_time <- stringr::str_replace_all(current_time, ':', '-')
-  current_time_dir <- normalizePath(file.path(ggseqlogo_dir, current_time), mustWork = F)
+  current_time_dir <- normalizePath(file.path(ggseqlogo_dir, current_time), mustWork = FALSE)
   cat('Create a foder:', current_time_dir, '\n')
   dir.create(current_time_dir)
 
@@ -47,7 +47,7 @@ plot_seqlogo <- function(base_dir, foreground_sequences_mapped_to_motifs, plot_m
     motif_seq_count <- length(motif_seq)
     if(motif_seq_count >= plot_min_seqs){
       motif_file_name <- paste(motif_seq_count, motif_name, ' seqs = ', motif_seq_count, '.pdf')
-      motif_file_path <- normalizePath(file.path(ggseqlogo_dir, current_time, motif_file_name), mustWork = F)
+      motif_file_path <- normalizePath(file.path(ggseqlogo_dir, current_time, motif_file_name), mustWork = FALSE)
 
       grDevices::pdf(motif_file_path, height = 6, width = 6)
       print(ggseqlogo::ggseqlogo(motif_seq))

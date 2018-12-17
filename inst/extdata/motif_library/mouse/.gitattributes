@@ -1,2 +1,0 @@
- filter=lfs diff=lfs merge=lfs -text
-*mouse_for_motif_enrichment.txt filter=lfs diff=lfs merge=lfs -text

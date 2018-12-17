@@ -21,7 +21,7 @@
 #'   minFC = 2,
 #'   minPvalue = 0.05,
 #'   main = 'Differentially expressed proteins',
-#'   show_text = F,
+#'   show_text = FALSE,
 #'   min_up_text = 15,
 #'   min_down_text = 15
 #' )
@@ -32,7 +32,7 @@ visualization_deps_with_scatter <- function(
   minFC = 2,
   minPvalue = 0.05,
   main = 'Differentially expressed proteins',
-  show_text = F,
+  show_text = FALSE,
   min_up_text = 15,
   min_down_text = 15
 ){
@@ -81,20 +81,20 @@ visualization_deps_with_scatter <- function(
     s <- as.vector(deps_data$ID)
     s_up <- s[index_of_up]
     x_v_up_set <- x_v[index_of_up]
-    x_v_up_set_order <- order(x_v_up_set, decreasing = T)
+    x_v_up_set_order <- order(x_v_up_set, decreasing = TRUE)
     y_v_up_set <- y_v[index_of_up]
-    y_v_up_set_order <- order(y_v_up_set, decreasing = T)
+    y_v_up_set_order <- order(y_v_up_set, decreasing = TRUE)
 
-    index_up_set <- intersect(x_v_up_set_order[1:min_up_text], y_v_up_set_order[1:min_up_text])
+    index_up_set <- intersect(x_v_up_set_order[seq_len(min_up_text)], y_v_up_set_order[seq_len(min_up_text)])
     graphics::text(x_v_up_set[index_up_set], y_v_up_set[index_up_set], s_up[index_up_set], pos = 3, cex = 0.6)
 
     s_down <- s[index_of_down]
     x_v_down_set <- x_v[index_of_down]
-    x_v_down_set_order <- order(x_v_down_set, decreasing = F)
+    x_v_down_set_order <- order(x_v_down_set, decreasing = FALSE)
     y_v_down_set <- y_v[index_of_down]
-    y_v_down_set_order <- order(y_v_down_set, decreasing = T)
+    y_v_down_set_order <- order(y_v_down_set, decreasing = TRUE)
 
-    index_down_set <- intersect(x_v_down_set_order[1:min_down_text], y_v_down_set_order[1:min_down_text])
+    index_down_set <- intersect(x_v_down_set_order[seq_len(min_down_text)], y_v_down_set_order[seq_len(min_down_text)])
     graphics::text(x_v_down_set[index_down_set], y_v_down_set[index_down_set], s_down[index_down_set], pos = 3, cex = 0.6)
   }
 }

@@ -101,7 +101,7 @@ get_ksea_result_list <- function(ptypes_data_ratio_in_sigle_exp, ID, kinase_subs
   ksea_regulons_i <- NULL
   for(l in seq_len(kinases_i_unique_count)){
     regulons_i_l <- regulons_i[[l]]
-    if(T){
+    if(TRUE){
       ksea_result_i_l <- get_kinase_substrate_enrichment_significance(
         ptypes_data_ratio_in_sigle_exp_desc,
         regulons_i_l,

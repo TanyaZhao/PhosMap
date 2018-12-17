@@ -21,14 +21,14 @@ get_normalized_data_FOT5 <- function(
 ){
   requireNamespace('utils')
   cat('\n The 7th step: Normalize data and filter data only including phosphorylation site.')
-  experiment_code <- utils::read.table(experiment_code_file_path, header = T, sep = '\t', stringsAsFactors = NA)
+  experiment_code <- utils::read.table(experiment_code_file_path, header = TRUE, sep = '\t', stringsAsFactors = NA)
   experiment_code <- as.vector(unlist(experiment_code$Experiment_Code))
   data_frame_colnames <- colnames(data_frame)
   ID <- as.vector(data_frame[,1])
   Value_raw <- data_frame[,-1]
   Value_FOT5 <- Value_raw
   Value_FOT5_col <- ncol(Value_FOT5)
-  for(i in 1:Value_FOT5_col){
+  for(i in seq_len(Value_FOT5_col)){
     x <- Value_raw[,i]
     valid_index <- which(x>0)
     valid_x <- x[valid_index]

@@ -51,7 +51,7 @@ get_file_list_and_file_ID_from_specific_dir <- function(specific_dir, experiment
     for(i in seq_len(matched_all_files_count)){
       # Read bach data and save to file_data_list.
       cat('\n complete: ', i, '/', matched_all_files_count)
-      file_data <- as.matrix(read_file_function(matched_all_files_paths[i], header = T, sep = sep))
+      file_data <- as.matrix(read_file_function(matched_all_files_paths[i], header = TRUE, sep = sep))
       file_data_list[[i]] <- file_data
     }
     attr(file_data_list,'names') <- matched_all_files_ID

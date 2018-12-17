@@ -26,9 +26,9 @@ keep_psites_with_max_in_topX <- function(phospho_data, percent_of_kept_sites = 3
     x <- as.vector(unlist(x))
     max(x)
   })
-  index_of_Value_rowmax_desc <- order(Value_rowmax, decreasing = T)
+  index_of_Value_rowmax_desc <- order(Value_rowmax, decreasing = TRUE)
   count_of_kept_sites <- round(nrow(Value)*percent_of_kept_sites)
-  index_of_Value_rowmax_desc_kept <- index_of_Value_rowmax_desc[1:count_of_kept_sites]
+  index_of_Value_rowmax_desc_kept <- index_of_Value_rowmax_desc[seq_len(count_of_kept_sites)]
   phospho_data_meet_percent <- phospho_data[index_of_Value_rowmax_desc_kept,]
   cat('\n The 8th step: filter over with ', percent_of_kept_sites_str, ' cutoff.')
   return(phospho_data_meet_percent)

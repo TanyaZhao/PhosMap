@@ -43,12 +43,12 @@ extract_psites_score <- function(
 
     command <- "python"
     path2script <- system.file("src", "XMLParser_mascot_dat.py", package = "PhosMap") # The location of python script called
-    path2script <- normalizePath(path2script, mustWork = F)
+    path2script <- normalizePath(path2script, mustWork = FALSE)
 
     # Get experiments codes by reading txt files
     experiment_code <- utils::read.table(phosphorylation_exp_design_info_file_path,
                                  sep = '\t',
-                                 header = T)
+                                 header = TRUE)
     experiment_code <- as.vector(unlist(experiment_code$Experiment_Code))
     experiment_code_count <- length(experiment_code)
     if (experiment_code_count < 1) {
@@ -61,7 +61,7 @@ extract_psites_score <- function(
 
     parent_dir <- dirname(phosphorylation_exp_design_info_file_path)
     parent_dir <- normalizePath(parent_dir)
-    log_dir <- normalizePath(file.path(parent_dir, 'log'), mustWork = F)
+    log_dir <- normalizePath(file.path(parent_dir, 'log'), mustWork = FALSE)
     if (!file.exists(log_dir)) {
       cat('\n', log_dir, ' -> ', 'No the directory, create it.')
       dir.create(log_dir)
@@ -99,8 +99,8 @@ extract_psites_score <- function(
     now_time <- Sys.time()
     now_time <- gsub(':', '-', now_time)
     log_df_file_name <- paste(now_time, 'log_of_extract_psites_score.txt')
-    log_df_file_path <- normalizePath(file.path(log_dir, log_df_file_name), mustWork = F)
-    utils::write.table(log_df, log_df_file_path, sep = '\t', row.names = F, quote = F)
+    log_df_file_path <- normalizePath(file.path(log_dir, log_df_file_name), mustWork = FALSE)
+    utils::write.table(log_df, log_df_file_path, sep = '\t', row.names = FALSE, quote = FALSE)
 
     cat('\n Program finish, please see result log to check status.', '->', log_df_file_path)
 

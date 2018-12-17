@@ -27,7 +27,7 @@ visualization_with_simple_pca <- function(expr_data_frame,
   expr_ID <- as.vector(expr_data_frame[,1])
   expr_Valule <- log2(expr_data_frame[,-1]) # have to log
   testDat <- t(expr_Valule) # row -> sample, col -> variable
-  pca <- stats::prcomp(((testDat)),center=T,scale=T)
+  pca <- stats::prcomp(((testDat)), center = TRUE, scale = TRUE)
   stats::screeplot(pca, type="lines")
   importance <- summary(pca)$importance
   PC1 <- importance[2,1]

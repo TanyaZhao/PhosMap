@@ -11,7 +11,7 @@
 
 get_filtered_df <- function(mascotfileName, refFileName){
   requireNamespace('utils')
-  fileData <- utils::read.table(mascotfileName, header = T, sep = '\t')
+  fileData <- utils::read.table(mascotfileName, header = TRUE, sep = '\t')
   fileData_seq <- as.vector(fileData$pep_seq)
 
   refFileData <- utils::read.delim(refFileName)

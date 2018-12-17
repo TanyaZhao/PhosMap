@@ -18,7 +18,7 @@
 #' }
 merge_profiling_file_from_Firmiana <- function(firmiana_gene_dir, US_cutoff = 1, experiment_gene_file_path){
   requireNamespace('utils')
-  DATA_DIR <- normalizePath(firmiana_gene_dir, mustWork = F)
+  DATA_DIR <- normalizePath(firmiana_gene_dir, mustWork = FALSE)
   if(!file.exists(DATA_DIR)){
     cat(DATA_DIR, ' -> ', 'No the file')
     stop('')
@@ -35,7 +35,7 @@ merge_profiling_file_from_Firmiana <- function(firmiana_gene_dir, US_cutoff = 1,
     x
   })
 
-  experiment_code <- utils::read.table(experiment_gene_file_path, header = T, sep = '\t', stringsAsFactors = NA)
+  experiment_code <- utils::read.table(experiment_gene_file_path, header = TRUE, sep = '\t', stringsAsFactors = NA)
   experiment_code <- as.vector(unlist(experiment_code$Experiment_Code))
 
   index_of_match <- match(experiment_code, exp_names)
@@ -78,7 +78,7 @@ merge_profiling_file_from_Firmiana <- function(firmiana_gene_dir, US_cutoff = 1,
   for(i in seq_len(file_names_count)){
     file_name <- file_names[i]
     file_path <- normalizePath(file.path(DATA_DIR, file_name))
-    file_data <- utils::read.delim(file_path, header = T, stringsAsFactors = NA, sep = '\t')
+    file_data <- utils::read.delim(file_path, header = TRUE, stringsAsFactors = NA, sep = '\t')
     colnames(file_data) <- file_data_colnames
     file_data <- file_data[, kept_colnames_index]
 
@@ -101,7 +101,7 @@ merge_profiling_file_from_Firmiana <- function(firmiana_gene_dir, US_cutoff = 1,
   if(data_list_count>1){
     for(i in 2:data_list_count){
       tmp_merge_df <- data_list[[i]]
-      merge_df <- merge(merge_df, tmp_merge_df, by = 'Symbol', all = T)
+      merge_df <- merge(merge_df, tmp_merge_df, by = 'Symbol', all = TRUE)
       cat('\n merge_complete: ', i, '/', data_list_count)
     }
   }

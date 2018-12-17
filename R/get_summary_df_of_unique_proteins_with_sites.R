@@ -32,13 +32,13 @@ get_summary_df_of_unique_proteins_with_sites <- function(
       'library', species, 'gi_fasta.txt',
       package = "PhosMap"
     ),
-    mustWork = F
+    mustWork = FALSE
   )
   if(!file.exists(PHOSPHATE_LIB_FASTA_FILE_PATH)){
     cat(PHOSPHATE_LIB_FASTA_FILE_PATH, ' -> ', 'No the file')
     stop('')
   }
-  gi_fasta <- utils::read.table(file=PHOSPHATE_LIB_FASTA_FILE_PATH, header=F, sep="\t")
+  gi_fasta <- utils::read.table(file=PHOSPHATE_LIB_FASTA_FILE_PATH, header=FALSE, sep="\t")
   colnames(gi_fasta) <- c('GI', 'Sequence')
 
 
@@ -53,7 +53,7 @@ get_summary_df_of_unique_proteins_with_sites <- function(
 
   proteins_in_id_data_only_peptide2gi <- as.vector(id_data_only_peptide2gi$GI)
   sequences_in_id_data_only_peptide2gi <- as.vector(id_data_only_peptide2gi$Sequence)
-  value_in_id_data_only_peptide2gi <- id_data_only_peptide2gi[, -c(1:4)]
+  value_in_id_data_only_peptide2gi <- id_data_only_peptide2gi[, -c(seq_len(4))]
 
   unique_proteins <- unique(proteins_in_id_data_only_peptide2gi)
   unique_protein_count <- length(unique_proteins)
@@ -96,7 +96,7 @@ get_summary_df_of_unique_proteins_with_sites <- function(
                                                                function(x){
     if(grepl('||', x)){
       x <- as.vector(x)
-      x <- strsplit(x, split = '||', fixed = T)
+      x <- strsplit(x, split = '||', fixed = TRUE)
       x[[1]][1]
     }
   })

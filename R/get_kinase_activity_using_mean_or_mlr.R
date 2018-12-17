@@ -51,7 +51,7 @@ get_kinase_activity_using_mean_or_mlr <- function(
     cat(KSRR_FILE_PATH, ' -> ', 'No the file')
     stop('')
   }
-  kinase_substrate_regulation_relationship <- utils::read.csv(KSRR_FILE_PATH, header = T, sep= ",", stringsAsFactors = NA)
+  kinase_substrate_regulation_relationship <- utils::read.csv(KSRR_FILE_PATH, header = TRUE, sep= ",", stringsAsFactors = NA)
 
   ID <- as.vector(ptypes_data[,1])
   ptypes_data_ratio <- ptypes_data[,-1]

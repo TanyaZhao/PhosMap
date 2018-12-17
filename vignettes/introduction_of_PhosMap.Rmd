@@ -205,7 +205,7 @@ visualization_deps_with_scatter(limma_results_df, minFC = 2, minPvalue = 0.05, m
     - SAM
 ```{r eval = FALSE}
 # (2) SAM
-sam_results_list <- analysis_deps_sam(expr_data_frame, deps_group, log2_label = FALSE, nperms = 100, rand = NULL, minFDR = 0.05, samr_plot = T)
+sam_results_list <- analysis_deps_sam(expr_data_frame, deps_group, log2_label = FALSE, nperms = 100, rand = NULL, minFDR = 0.05, samr_plot = TRUE)
 sam_results <- rbind(sam_results_list$genes_up_df, sam_results_list$genes_down_df)
 ```
     - ANOVA
@@ -213,7 +213,7 @@ sam_results <- rbind(sam_results_list$genes_up_df, sam_results_list$genes_down_d
 # (3) annova
 anova_result_df <- analysis_deps_anova(expr_data_frame, deps_group, log2_label = FALSE, return_padjust = TRUE, adjust_method = 'BH')
 visualization_deps_with_scatter(anova_result_df, minFC = 2, minPvalue = 0.05, main = 'Differentially expressed proteins \n with anova',
-                                show_text = F, min_up_text = 15, min_down_text = 15)
+                                show_text = FALSE, min_up_text = 15, min_down_text = 15)
 ```
 
 
@@ -231,7 +231,7 @@ fuzzy_clustObj <- visualization_line_chart_with_fuzzycluster(fuzzy_input_df, gro
 clusterS_info <- fuzzy_clustObj$cluster
 clusterS_names <- names(clusterS_info)
 clusters_df <- data.frame(clusterS_names, clusterS_info)
-# write.csv(clusters_df, 'clusters_df.csv', row.names = T)
+# write.csv(clusters_df, 'clusters_df.csv', row.names = TRUE)
 ```
 
 
@@ -306,10 +306,10 @@ if(TRUE){
     clustering_distance_rows = 'euclidean',
     fontsize_row = 5, 
     # cutree_rows = 1, 
-    show_rownames = T,
+    show_rownames = TRUE,
     fontsize_col = 5,
     # cutree_cols = 1, 
-    cluster_cols = F,
+    cluster_cols = FALSE,
     border_color = 'black', 
     cellwidth = 5, cellheight = 5,
     breaks = breaks,
@@ -387,7 +387,7 @@ foreground_df_mapped_to_motifs <- get_foreground_df_mapped_to_motifs(foreground_
 require(ggseqlogo)
 ggseqlogo(foreground_sequences_mapped_to_motifs[[1]])
 
-if(T){
+if(TRUE){
   # batch plot and count peptides for each motif
   foreground_sequences_mapped_to_motifs_count <- length(foreground_sequences_mapped_to_motifs)
   motifs <- names(foreground_sequences_mapped_to_motifs)
@@ -398,7 +398,7 @@ if(T){
   }
   motifs_peptides_count_df <- data.frame(motifs, peptides_count)
   # quantile(peptides_count, seq(0,1,0.05))
-  if(F){
+  if(FALSE){
     plot_seqlogo(BASE_DIR, foreground_sequences_mapped_to_motifs, plot_min_seqs = 25)
   }
   
@@ -461,8 +461,8 @@ if(TRUE){
     scale = 'none', 
     # annotation_col = annotation_col, 
     clustering_distance_cols = 'euclidean',
-    fontsize_row = 6, cutree_rows = 1, show_rownames = T, cluster_rows = T,
-    fontsize_col = 6, cutree_cols = 1, show_colnames = T, cluster_cols = F,
+    fontsize_row = 6, cutree_rows = 1, show_rownames = TRUE, cluster_rows = TRUE,
+    fontsize_col = 6, cutree_cols = 1, show_colnames = TRUE, cluster_cols = FALSE,
     border_color = 'black', 
     # color = colors, 
     cellwidth = 6, cellheight = 6,
@@ -480,7 +480,7 @@ if(TRUE){
 # formatting output
 formatted_output_df <- formatted_output_foreground_sequences_mapped_to_motifs(foreground_sequences_mapped_to_motifs)
 # write file
-# write.table(formatted_output_df, 'formatted_output_df.txt', row.names = F, col.names = F, sep = '\t')
+# write.table(formatted_output_df, 'formatted_output_df.txt', row.names = FALSE, col.names = FALSE, sep = '\t')
 ```
 # Session Info {.unnumbered}
 

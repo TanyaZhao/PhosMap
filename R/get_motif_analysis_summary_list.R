@@ -56,12 +56,12 @@ get_motif_analysis_summary_list <- function(
   }
 
   summry_list <- data.frame(
-    motif = sapply(motif_result_list, function(x){x$motif_pattern}),
-    score = sapply(motif_result_list, function(x){x$motif_pattern_score}),
-    foreground_matches = sapply(motif_result_list, function(x){x$foreground_matches}),
-    foreground_size = sapply(motif_result_list, function(x){x$foreground_size}),
-    background_matches = sapply(motif_result_list, function(x){x$background_matches}),
-    background_size = sapply(motif_result_list, function(x){x$background_size})
+    motif = vapply(motif_result_list, function(x){x$motif_pattern},c('character')),
+    score = vapply(motif_result_list, function(x){x$motif_pattern_score}, c(1)),
+    foreground_matches = vapply(motif_result_list, function(x){x$foreground_matches}, 1),
+    foreground_size = vapply(motif_result_list, function(x){x$foreground_size}, 1),
+    background_matches = vapply(motif_result_list, function(x){x$background_matches}, 1),
+    background_size = vapply(motif_result_list, function(x){x$background_size}, 1)
   )
 
   foreground_fold_increase <- summry_list$foreground_matches/summry_list$foreground_size

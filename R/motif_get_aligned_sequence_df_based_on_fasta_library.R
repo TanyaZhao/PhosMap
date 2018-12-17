@@ -38,14 +38,14 @@ motif_get_aligned_sequence_df_based_on_fasta_library <- function(GI, Sequence, A
       'library', species, 'gi_fasta.txt',
       package = "PhosMap"
     ),
-    mustWork = F
+    mustWork = FALSE
   )
   if(!file.exists(PHOSPHATE_LIB_FASTA_FILE_PATH)){
     cat(PHOSPHATE_LIB_FASTA_FILE_PATH, ' -> ', 'No the file')
     stop('')
   }
   cat('Read fasta file of ', species, '.\n', sep = '')
-  fasta_data <- utils::read.table(file=PHOSPHATE_LIB_FASTA_FILE_PATH, header=F, sep="\t")
+  fasta_data <- utils::read.table(file=PHOSPHATE_LIB_FASTA_FILE_PATH, header=FALSE, sep="\t")
   border_limit <- floor(fixed_length/2)
   aligned_seq <- NULL
   GI_nrow <- length(GI)

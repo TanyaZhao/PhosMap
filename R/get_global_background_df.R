@@ -36,7 +36,7 @@ get_global_background_df <- function(species){
   }
 
   cat('Read background file of ', species, '.\n', sep = '')
-  background_df <- utils::read.table(BACKGROUND_FILE_PATH, sep = '\t', header = T)
+  background_df <- utils::read.table(BACKGROUND_FILE_PATH, sep = '\t', header = TRUE)
   cat('Read OK! ^_^', '\n')
 
   return(background_df)
