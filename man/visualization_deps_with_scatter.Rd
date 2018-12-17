@@ -5,7 +5,7 @@
 \title{Visualize differentially expressed results with scatter}
 \usage{
 visualization_deps_with_scatter(deps_data, minFC = 2, minPvalue = 0.05,
-  main = "Differentially expressed proteins", show_text = F,
+  main = "Differentially expressed proteins", show_text = FALSE,
   min_up_text = 15, min_down_text = 15)
 }
 \arguments{
@@ -36,7 +36,7 @@ visualization_deps_with_scatter(
   minFC = 2,
   minPvalue = 0.05,
   main = 'Differentially expressed proteins',
-  show_text = F,
+  show_text = FALSE,
   min_up_text = 15,
   min_down_text = 15
 )

@@ -37,7 +37,7 @@ df_phospho_Value_vs_profiling = normalize_phospho_data_to_profiling(
   profiling_data_normalized,
   experiment_design_file_path,
   control_label = NA,
-  pair_flag = F
+  pair_flag = FALSE
 )
 }
 }

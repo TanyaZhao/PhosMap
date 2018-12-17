@@ -10,13 +10,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' formatted_output_df <- formatted_output_foreground_sequences_mapped_to_motifs(
+#' formatted_output_df <- formatted_output_mef_results(
 #'   foreground_sequences_mapped_to_motifs
 #' )
 #' }
 
 
-formatted_output_foreground_sequences_mapped_to_motifs <- function(
+formatted_output_mef_results <- function(
   foreground_sequences_mapped_to_motifs
 ){
   cat('Output formatted sequences in foreground that are mapped to specific motif. \n')
