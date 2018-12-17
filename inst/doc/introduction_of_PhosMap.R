@@ -145,16 +145,16 @@ limma_results_df$ID <- apply(limma_results_df, 1, function(x){
 visualization_deps_with_scatter(limma_results_df, minFC = 2, minPvalue = 0.05, main = 'Differentially expressed proteins  \n with limma',
                                 show_text = FALSE, min_up_text = 70, min_down_text = 70)
 
-## ------------------------------------------------------------------------
-# (2) SAM
-sam_results_list <- analysis_deps_sam(expr_data_frame, deps_group, log2_label = FALSE, nperms = 100, rand = NULL, minFDR = 0.05, samr_plot = TRUE)
-sam_results <- rbind(sam_results_list$genes_up_df, sam_results_list$genes_down_df)
+## ----eval=FALSE----------------------------------------------------------
+#  # (2) SAM
+#  sam_results_list <- analysis_deps_sam(expr_data_frame, deps_group, log2_label = FALSE, nperms = 100, rand = NULL, minFDR = 0.05, samr_plot = TRUE)
+#  sam_results <- rbind(sam_results_list$genes_up_df, sam_results_list$genes_down_df)
 
-## ------------------------------------------------------------------------
-# (3) annova
-anova_result_df <- analysis_deps_anova(expr_data_frame, deps_group, log2_label = FALSE, return_padjust = TRUE, adjust_method = 'BH')
-visualization_deps_with_scatter(anova_result_df, minFC = 2, minPvalue = 0.05, main = 'Differentially expressed proteins \n with anova',
-                                show_text = FALSE, min_up_text = 15, min_down_text = 15)
+## ----eval=FALSE----------------------------------------------------------
+#  # (3) annova
+#  anova_result_df <- analysis_deps_anova(expr_data_frame, deps_group, log2_label = FALSE, return_padjust = TRUE, adjust_method = 'BH')
+#  visualization_deps_with_scatter(anova_result_df, minFC = 2, minPvalue = 0.05, main = 'Differentially expressed proteins \n with anova',
+#                                  show_text = FALSE, min_up_text = 15, min_down_text = 15)
 
 ## ----visualization_line_chart_with_fuzzycluster, fig.cap = "Time course analysis example", fig.width = 6, fig.height = 6, fig.align = 'center'----
 group_levels <- levels(group)
@@ -180,74 +180,74 @@ expr_data_frame <- data_frame_normalization_with_control_no_pair
 index_of_cluster <- match(cluster_symbol, expr_data_frame$ID)
 cluster_df <- expr_data_frame[index_of_cluster,]
 
-## ----eval=FALSE----------------------------------------------------------
-#  # Perform KSEA
-#  summary_df_list_from_ksea_cluster <- get_summary_df_list_from_ksea(cluster_df, species = 'human', log2_label = FALSE, ratio_cutoff = 3)
-#  # Activity of regulons for regulation
-#  ksea_regulons_activity_df_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_activity_df
-#  ksea_id_cluster <- as.vector(ksea_regulons_activity_df_cluster[,1])
-#  ksea_value_cluster <- ksea_regulons_activity_df_cluster[,-1]
-#  if(FALSE){
-#    # Pvalue of regulons for regulation
-#    ksea_regulons_pvalue_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_pvalue_df
-#    # Activity of regulons for regulation
-#    ksea_regulons_activity_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_activity_df
-#    # Expression ratio of regulons for regulation
-#    ksea_kinase_site_substrate_original_ratio_cluster <- summary_df_list_from_ksea_cluster$ksea_kinase_site_substrate_original_ratio_df
-#  }
-#  
-#  
-#  
-#  # plot pheatmap
-#  if(FALSE){
-#    # annotation setting
-#    annotation_col <- data.frame(
-#      group = group
-#    )
-#    rownames(annotation_col) <- colnames(ksea_value_cluster)
-#  
-#    # breaks and colors setting
-#    breaks_1 <- seq(-4, -2, 0.2)
-#    colors_1 <- colorRampPalette(c('#11264f', '#145b7d'))(length(breaks_1)-1)
-#  
-#    breaks_2 <- seq(-2, -1, 0.2)
-#    colors_2 <- colorRampPalette(c('#145b7d', '#009ad6'))(length(breaks_2))
-#  
-#    breaks_3 <- seq(-1, 1, 0.2)
-#    colors_3 <- colorRampPalette(c('#009ad6', 'white', '#FF6600'))(length(breaks_3))
-#  
-#    breaks_4 <- seq(1, 2, 0.2)
-#    colors_4 <- colorRampPalette(c('#FF6600', 'red'))(length(breaks_4))
-#  
-#    breaks_5 <- seq(2, 4, 0.2)
-#    colors_5 <- colorRampPalette(c('red', 'firebrick'))(length(breaks_5))
-#  
-#    breaks <- c(breaks_1, breaks_2, breaks_3, breaks_4, breaks_5)
-#    breaks <- breaks[which(!duplicated(breaks))]
-#    color <- c(colors_1, colors_2, colors_3, colors_4, colors_5)
-#    color <- color[which(!duplicated(color))]
-#    # library(pheatmap)
-#    ph <- pheatmap(
-#      ksea_value_cluster,
-#      scale = 'none',
-#      annotation_col = annotation_col,
-#      clustering_distance_rows = 'euclidean',
-#      fontsize_row = 5,
-#      # cutree_rows = 1,
-#      show_rownames = TRUE,
-#      fontsize_col = 5,
-#      # cutree_cols = 1,
-#      cluster_cols = FALSE,
-#      border_color = 'black',
-#      cellwidth = 5, cellheight = 5,
-#      breaks = breaks,
-#      color = color,
-#      legend_breaks = c(-4, -2, -1, 0, 1, 2, 4),
-#      legend_labels = c(-4, -2, -1, 0, 1, 2, 4),
-#      main = paste('Kinase-substrate enrichment analysis', cluster_flag, sep = ' ')
-#    )
-#  }
-#  
+## ----fig.cap = "KSEA method", fig.width = 6, fig.height = 5, fig.align = 'center'----
+# Perform KSEA
+summary_df_list_from_ksea_cluster <- get_summary_df_list_from_ksea(cluster_df, species = 'human', log2_label = FALSE, ratio_cutoff = 3)
+# Activity of regulons for regulation
+ksea_regulons_activity_df_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_activity_df
+ksea_id_cluster <- as.vector(ksea_regulons_activity_df_cluster[,1])
+ksea_value_cluster <- ksea_regulons_activity_df_cluster[,-1]
+if(FALSE){
+  # Pvalue of regulons for regulation
+  ksea_regulons_pvalue_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_pvalue_df
+  # Activity of regulons for regulation
+  ksea_regulons_activity_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_activity_df
+  # Expression ratio of regulons for regulation
+  ksea_kinase_site_substrate_original_ratio_cluster <- summary_df_list_from_ksea_cluster$ksea_kinase_site_substrate_original_ratio_df
+}
+
+
+
+# plot pheatmap
+if(TRUE){
+  # annotation setting
+  annotation_col <- data.frame(
+    group = group
+  )
+  rownames(annotation_col) <- colnames(ksea_value_cluster)
+  
+  # breaks and colors setting
+  breaks_1 <- seq(-4, -2, 0.2)
+  colors_1 <- colorRampPalette(c('#11264f', '#145b7d'))(length(breaks_1)-1)
+  
+  breaks_2 <- seq(-2, -1, 0.2)
+  colors_2 <- colorRampPalette(c('#145b7d', '#009ad6'))(length(breaks_2))
+  
+  breaks_3 <- seq(-1, 1, 0.2)
+  colors_3 <- colorRampPalette(c('#009ad6', 'white', '#FF6600'))(length(breaks_3))
+  
+  breaks_4 <- seq(1, 2, 0.2)
+  colors_4 <- colorRampPalette(c('#FF6600', 'red'))(length(breaks_4))
+  
+  breaks_5 <- seq(2, 4, 0.2)
+  colors_5 <- colorRampPalette(c('red', 'firebrick'))(length(breaks_5))
+  
+  breaks <- c(breaks_1, breaks_2, breaks_3, breaks_4, breaks_5)
+  breaks <- breaks[which(!duplicated(breaks))]
+  color <- c(colors_1, colors_2, colors_3, colors_4, colors_5)
+  color <- color[which(!duplicated(color))]
+  library(pheatmap)
+  ph <- pheatmap(
+    ksea_value_cluster, 
+    scale = 'none', 
+    annotation_col = annotation_col, 
+    clustering_distance_rows = 'euclidean',
+    fontsize_row = 5, 
+    # cutree_rows = 1, 
+    show_rownames = TRUE,
+    fontsize_col = 5,
+    # cutree_cols = 1, 
+    cluster_cols = FALSE,
+    border_color = 'black', 
+    cellwidth = 5, cellheight = 5,
+    breaks = breaks,
+    color = color,
+    legend_breaks = c(-4, -2, -1, 0, 1, 2, 4),
+    legend_labels = c(-4, -2, -1, 0, 1, 2, 4),
+    main = paste('Kinase-substrate enrichment analysis', cluster_flag, sep = ' ')
+  )
+}
+
 
 ## ----eval = FALSE--------------------------------------------------------
 #  # get kinase activity matrix with multiple linear regression (mlr) method
@@ -317,7 +317,7 @@ if(TRUE){
   
 }
 
-## ----Assign quantitative values of peptides to their motif---------------
+## ----Assign quantitative values of peptides to their motif, fig.cap = "KSEA method", fig.width = 6, fig.height = 5, fig.align = 'center'----
 # Select motifs at least having 50 peptides
 # Assign quantitative values of peptides to their motif
 foreground_value <- foreground_data[,-c(seq(1,6))]
@@ -345,7 +345,7 @@ motif_group_m_ratio_df_mat <- as.matrix(motif_group_m_ratio_df)
 
 
 # plot pheatmap
-if(FALSE){
+if(TRUE){
   # library(pheatmap)
   # breaks and colors setting
   breaks_1 <- seq(0, 0.5, 0.1)
@@ -376,7 +376,7 @@ if(FALSE){
     fontsize_col = 6, cutree_cols = 1, show_colnames = TRUE, cluster_cols = FALSE,
     border_color = 'black', 
     # color = colors, 
-    cellwidth = 6, cellheight = 6,
+    cellwidth = 12, cellheight = 12,
     breaks = breaks,
     color = colors,
     legend_breaks = c(0, 0.5, 1, 1.5, 2, 4),

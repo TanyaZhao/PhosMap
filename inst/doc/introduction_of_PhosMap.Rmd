@@ -203,13 +203,13 @@ visualization_deps_with_scatter(limma_results_df, minFC = 2, minPvalue = 0.05, m
                                 show_text = FALSE, min_up_text = 70, min_down_text = 70)
 ```
     - SAM
-```{r }
+```{r eval=FALSE}
 # (2) SAM
 sam_results_list <- analysis_deps_sam(expr_data_frame, deps_group, log2_label = FALSE, nperms = 100, rand = NULL, minFDR = 0.05, samr_plot = TRUE)
 sam_results <- rbind(sam_results_list$genes_up_df, sam_results_list$genes_down_df)
 ```
     - ANOVA
-```{r }
+```{r eval=FALSE}
 # (3) annova
 anova_result_df <- analysis_deps_anova(expr_data_frame, deps_group, log2_label = FALSE, return_padjust = TRUE, adjust_method = 'BH')
 visualization_deps_with_scatter(anova_result_df, minFC = 2, minPvalue = 0.05, main = 'Differentially expressed proteins \n with anova',
@@ -250,7 +250,7 @@ cluster_df <- expr_data_frame[index_of_cluster,]
 ```
 
 - KSEA
-```{r eval=FALSE}
+```{r fig.cap = "KSEA method", fig.width = 6, fig.height = 5, fig.align = 'center'}
 # Perform KSEA
 summary_df_list_from_ksea_cluster <- get_summary_df_list_from_ksea(cluster_df, species = 'human', log2_label = FALSE, ratio_cutoff = 3)
 # Activity of regulons for regulation
@@ -269,7 +269,7 @@ if(FALSE){
 
 
 # plot pheatmap
-if(FALSE){
+if(TRUE){
   # annotation setting
   annotation_col <- data.frame(
     group = group
@@ -296,7 +296,7 @@ if(FALSE){
   breaks <- breaks[which(!duplicated(breaks))]
   color <- c(colors_1, colors_2, colors_3, colors_4, colors_5)
   color <- color[which(!duplicated(color))]
-  # library(pheatmap)
+  library(pheatmap)
   ph <- pheatmap(
     ksea_value_cluster, 
     scale = 'none', 
@@ -405,7 +405,7 @@ if(TRUE){
 
 
 - Assign quantitative values of peptides to their motif
-```{r Assign quantitative values of peptides to their motif}
+```{r Assign quantitative values of peptides to their motif, fig.cap = "KSEA method", fig.width = 6, fig.height = 5, fig.align = 'center'}
 # Select motifs at least having 50 peptides
 # Assign quantitative values of peptides to their motif
 foreground_value <- foreground_data[,-c(seq(1,6))]
@@ -433,7 +433,7 @@ motif_group_m_ratio_df_mat <- as.matrix(motif_group_m_ratio_df)
 
 
 # plot pheatmap
-if(FALSE){
+if(TRUE){
   # library(pheatmap)
   # breaks and colors setting
   breaks_1 <- seq(0, 0.5, 0.1)
@@ -464,7 +464,7 @@ if(FALSE){
     fontsize_col = 6, cutree_cols = 1, show_colnames = TRUE, cluster_cols = FALSE,
     border_color = 'black', 
     # color = colors, 
-    cellwidth = 6, cellheight = 6,
+    cellwidth = 12, cellheight = 12,
     breaks = breaks,
     color = colors,
     legend_breaks = c(0, 0.5, 1, 1.5, 2, 4),
