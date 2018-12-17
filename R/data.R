@@ -27,25 +27,10 @@
 #'
 #' @keywords datasets
 #'
-#' @references Ressa, A., et al. (2018) A System-wide Approach to Monitor Responses to Synergistic BRAF and EGFR Inhibition in Colorectal Cancer Cells, Molecular & cellular proteomics : MCP, 17, 1892-1908.
+#' @references Ressa, A, et al. (2018) A System-wide Approach to Monitor Responses to Synergistic BRAF and EGFR Inhibition in Colorectal Cancer Cells, Molecular & cellular proteomics : MCP, 17, 1892-1908.
 #'
 #' @source \url{https://www.ebi.ac.uk/pride/archive/projects/PXD007740/}
 #'
-#' @examples
-#' data(BRAFi)
-#' phospho_data_normalization_and_filtering_STY <- BRAFi$phospho_data_normalization_and_filtering_STY
-#' ID <- paste(
-#'   phospho_data_normalization_and_filtering_STY$GeneSymbol,
-#'   phospho_data_normalization_and_filtering_STY$AA_in_protein,
-#'   sep = '_'
-#' )
-#' Value <- phospho_data_normalization_and_filtering_STY[,-seq(1,6)]
-#' phospho_data <- data.frame(ID, Value)
-#' \donttest{phospho_data_top75 = keep_psites_with_max_in_topX(
-#'                                  phospho_data,
-#'                                  percent_of_kept_sites = 0.75
-#'                                )
-#' }
 'BRAFi'
 
 
