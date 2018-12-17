@@ -280,6 +280,7 @@ motifx_pvalue <- 0.01
 
 ## ----motif_enrichment_analysis_based_on_background-----------------------
 # construct foreground and background
+# To facilitate testing the module, select an appropriate number of items at random.
 foreground <- as.vector(foreground_df$aligned_seq)
 foreground <- foreground[sample(length(foreground), 1000)]
 background <- as.vector(background_df$Aligned_Seq)
