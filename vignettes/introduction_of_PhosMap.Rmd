@@ -250,10 +250,12 @@ cluster_df <- expr_data_frame[index_of_cluster,]
 ```
 
 - KSEA
-```{r get_summary_df_list_from_ksea, fig.cap = "KSEA method", fig.width = 6, fig.height = 5, fig.align = 'center'}
-system.time({
-  summary_df_list_from_ksea_cluster <- get_summary_df_list_from_ksea(cluster_df, species = 'human', log2_label = FALSE, ratio_cutoff = 3)
-})
+```{r}
+# Perform KSEA
+summary_df_list_from_ksea_cluster <- get_summary_df_list_from_ksea(cluster_df, species = 'human', log2_label = FALSE, ratio_cutoff = 3)
+```
+
+```{r plot heamap, fig.cap = "KSEA method", fig.width = 6, fig.height = 5, fig.align = 'center'}
 # Activity of regulons for regulation
 ksea_regulons_activity_df_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_activity_df
 ksea_id_cluster <- as.vector(ksea_regulons_activity_df_cluster[,1])
@@ -266,8 +268,6 @@ if(FALSE){
   # Expression ratio of regulons for regulation
   ksea_kinase_site_substrate_original_ratio_cluster <- summary_df_list_from_ksea_cluster$ksea_kinase_site_substrate_original_ratio_df
 }
-
-
 
 # annotation setting
 annotation_col <- data.frame(
