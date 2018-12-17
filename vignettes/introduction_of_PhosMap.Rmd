@@ -203,13 +203,13 @@ visualization_deps_with_scatter(limma_results_df, minFC = 2, minPvalue = 0.05, m
                                 show_text = FALSE, min_up_text = 70, min_down_text = 70)
 ```
     - SAM
-```{r eval = FALSE}
+```{r }
 # (2) SAM
 sam_results_list <- analysis_deps_sam(expr_data_frame, deps_group, log2_label = FALSE, nperms = 100, rand = NULL, minFDR = 0.05, samr_plot = TRUE)
 sam_results <- rbind(sam_results_list$genes_up_df, sam_results_list$genes_down_df)
 ```
     - ANOVA
-```{r eval = FALSE}
+```{r }
 # (3) annova
 anova_result_df <- analysis_deps_anova(expr_data_frame, deps_group, log2_label = FALSE, return_padjust = TRUE, adjust_method = 'BH')
 visualization_deps_with_scatter(anova_result_df, minFC = 2, minPvalue = 0.05, main = 'Differentially expressed proteins \n with anova',
@@ -253,9 +253,6 @@ cluster_df <- expr_data_frame[index_of_cluster,]
 ```{r eval=FALSE}
 # Perform KSEA
 summary_df_list_from_ksea_cluster <- get_summary_df_list_from_ksea(cluster_df, species = 'human', log2_label = FALSE, ratio_cutoff = 3)
-```
-
-```{r plot heamap, fig.cap = "KSEA method", fig.width = 6, fig.height = 5, fig.align = 'center', eval=FALSE}
 # Activity of regulons for regulation
 ksea_regulons_activity_df_cluster <- summary_df_list_from_ksea_cluster$ksea_regulons_activity_df
 ksea_id_cluster <- as.vector(ksea_regulons_activity_df_cluster[,1])
@@ -269,36 +266,37 @@ if(FALSE){
   ksea_kinase_site_substrate_original_ratio_cluster <- summary_df_list_from_ksea_cluster$ksea_kinase_site_substrate_original_ratio_df
 }
 
-# annotation setting
-annotation_col <- data.frame(
-  group = group
-)
-rownames(annotation_col) <- colnames(ksea_value_cluster)
 
-# breaks and colors setting
-breaks_1 <- seq(-4, -2, 0.2)
-colors_1 <- colorRampPalette(c('#11264f', '#145b7d'))(length(breaks_1)-1)
-
-breaks_2 <- seq(-2, -1, 0.2)
-colors_2 <- colorRampPalette(c('#145b7d', '#009ad6'))(length(breaks_2))
-
-breaks_3 <- seq(-1, 1, 0.2)
-colors_3 <- colorRampPalette(c('#009ad6', 'white', '#FF6600'))(length(breaks_3))
-
-breaks_4 <- seq(1, 2, 0.2)
-colors_4 <- colorRampPalette(c('#FF6600', 'red'))(length(breaks_4))
-
-breaks_5 <- seq(2, 4, 0.2)
-colors_5 <- colorRampPalette(c('red', 'firebrick'))(length(breaks_5))
-
-breaks <- c(breaks_1, breaks_2, breaks_3, breaks_4, breaks_5)
-breaks <- breaks[which(!duplicated(breaks))]
-color <- c(colors_1, colors_2, colors_3, colors_4, colors_5)
-color <- color[which(!duplicated(color))]
 
 # plot pheatmap
-if(TRUE){
-  library(pheatmap)
+if(FALSE){
+  # annotation setting
+  annotation_col <- data.frame(
+    group = group
+  )
+  rownames(annotation_col) <- colnames(ksea_value_cluster)
+  
+  # breaks and colors setting
+  breaks_1 <- seq(-4, -2, 0.2)
+  colors_1 <- colorRampPalette(c('#11264f', '#145b7d'))(length(breaks_1)-1)
+  
+  breaks_2 <- seq(-2, -1, 0.2)
+  colors_2 <- colorRampPalette(c('#145b7d', '#009ad6'))(length(breaks_2))
+  
+  breaks_3 <- seq(-1, 1, 0.2)
+  colors_3 <- colorRampPalette(c('#009ad6', 'white', '#FF6600'))(length(breaks_3))
+  
+  breaks_4 <- seq(1, 2, 0.2)
+  colors_4 <- colorRampPalette(c('#FF6600', 'red'))(length(breaks_4))
+  
+  breaks_5 <- seq(2, 4, 0.2)
+  colors_5 <- colorRampPalette(c('red', 'firebrick'))(length(breaks_5))
+  
+  breaks <- c(breaks_1, breaks_2, breaks_3, breaks_4, breaks_5)
+  breaks <- breaks[which(!duplicated(breaks))]
+  color <- c(colors_1, colors_2, colors_3, colors_4, colors_5)
+  color <- color[which(!duplicated(color))]
+  # library(pheatmap)
   ph <- pheatmap(
     ksea_value_cluster, 
     scale = 'none', 
@@ -325,14 +323,14 @@ if(TRUE){
 - MLR
 ```{r eval = FALSE}
 # get kinase activity matrix with multiple linear regression (mlr) method
-kinase_activity_df <- get_kinase_activity_using_mean_or_mlr(ptypes_data, species = 'human', log2_label = TRUE, method = 'mlr')
+kinase_activity_df_mlr <- get_kinase_activity_using_mean_or_mlr(cluster_df, species = 'human', log2_label = TRUE, method = 'mlr')
 ```
 
 
 - Mean value
 ```{r eval = FALSE}
 # get kinase activity matrix with mean value method
-kinase_activity_df <- get_kinase_activity_using_mean_or_mlr(ptypes_data, species = 'human', log2_label = TRUE, method = 'mean')
+kinase_activity_df_mean <- get_kinase_activity_using_mean_or_mlr(cluster_df, species = 'human', log2_label = TRUE, method = 'mean')
 ```
 
 
@@ -407,7 +405,7 @@ if(TRUE){
 
 
 - Assign quantitative values of peptides to their motif
-```{r pheatmap, fig.cap = "Assign quantitative values of peptides to their motif",  fig.width = 6, fig.height = 5, fig.align = 'center'}
+```{r Assign quantitative values of peptides to their motif}
 # Select motifs at least having 50 peptides
 # Assign quantitative values of peptides to their motif
 foreground_value <- foreground_data[,-c(seq(1,6))]
@@ -432,30 +430,31 @@ rownames(motif_group_m_ratio_df) <- paste(motifs_subset, peptides_count_subset)
 motif_group_m_ratio_df_mat <- as.matrix(motif_group_m_ratio_df)
 
 
-# breaks and colors setting
-breaks_1 <- seq(0, 0.5, 0.1)
-colors_1 <- colorRampPalette(c('green', 'blue'))(length(breaks_1)-1)
 
-breaks_3 <- seq(0.5, 1.5, 0.1)
-colors_3 <- colorRampPalette(c('blue', 'white', '#FFBFBF'))(length(breaks_3))
-
-breaks_4 <- seq(1.5, 2, 0.1)
-colors_4 <- colorRampPalette(c('#FFBFBF', 'red'))(length(breaks_4))
-
-breaks_5 <- seq(2, 4, 0.1)
-colors_5 <- colorRampPalette(c('red','firebrick'))(length(breaks_5))
-
-breaks <- c(breaks_1, breaks_3, breaks_4, breaks_5)
-breaks <- breaks[which(!duplicated(breaks))]
-colors <- c(colors_1, colors_3, colors_4, colors_5)
-colors <- colors[which(!duplicated(colors))]
-
-length(breaks)
-length(which(!duplicated(colors)))
 
 # plot pheatmap
-if(TRUE){
-  library(pheatmap)
+if(FALSE){
+  # library(pheatmap)
+  # breaks and colors setting
+  breaks_1 <- seq(0, 0.5, 0.1)
+  colors_1 <- colorRampPalette(c('green', 'blue'))(length(breaks_1)-1)
+  
+  breaks_3 <- seq(0.5, 1.5, 0.1)
+  colors_3 <- colorRampPalette(c('blue', 'white', '#FFBFBF'))(length(breaks_3))
+  
+  breaks_4 <- seq(1.5, 2, 0.1)
+  colors_4 <- colorRampPalette(c('#FFBFBF', 'red'))(length(breaks_4))
+  
+  breaks_5 <- seq(2, 4, 0.1)
+  colors_5 <- colorRampPalette(c('red','firebrick'))(length(breaks_5))
+  
+  breaks <- c(breaks_1, breaks_3, breaks_4, breaks_5)
+  breaks <- breaks[which(!duplicated(breaks))]
+  colors <- c(colors_1, colors_3, colors_4, colors_5)
+  colors <- colors[which(!duplicated(colors))]
+  
+  length(breaks)
+  length(which(!duplicated(colors)))
   ph <- pheatmap(
     motif_group_m_ratio_df_mat, 
     scale = 'none', 
